@@ -1,0 +1,177 @@
+:root {
+  --cor-marca: #1f4b99;
+  --cor-marca-escura: #16376f;
+  --cor-texto: #14181f;
+  --cor-texto-suave: #5a6472;
+  --cor-fundo: #ffffff;
+  --cor-fundo-suave: #f4f6fa;
+  --cor-borda: #d9dfe9;
+  --cor-positivo: #1b7f53;
+  --cor-erro: #b3261e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--cor-marca);
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.cabecalho {
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 16px 0;
+}
+
+.cabecalho nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.marca {
+  font-weight: 700;
+  color: var(--cor-marca);
+  text-decoration: none;
+}
+
+.botao-primario {
+  background: var(--cor-marca);
+  color: #fff;
+  border: 1px solid var(--cor-marca);
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.botao-primario:hover:not(:disabled) {
+  background: var(--cor-marca-escura);
+}
+
+.botao-primario:disabled {
+  background: var(--cor-borda);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto-suave);
+  cursor: not-allowed;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.campo input,
+.campo textarea {
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  padding: 10px;
+  font: inherit;
+}
+
+.campo .erro {
+  color: var(--cor-erro);
+  font-size: 13px;
+}
+
+.grade-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.cartao {
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  padding: 16px;
+  background: var(--cor-fundo);
+}
+
+.cartao .rotulo {
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+}
+
+.cartao .valor {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 4px 0;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 15px;
+}
+
+.tabela th {
+  color: var(--cor-texto-suave);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.positivo {
+  color: var(--cor-positivo);
+}
+
+.negativo {
+  color: var(--cor-erro);
+}
+
+.heroi {
+  padding: 40px 0;
+}
+
+.heroi h1 {
+  font-size: 40px;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+
+.heroi p {
+  color: var(--cor-texto-suave);
+  font-size: 18px;
+  max-width: 60ch;
+}
+
+.secao {
+  padding: 40px 0;
+  border-top: 1px solid var(--cor-borda);
+}
