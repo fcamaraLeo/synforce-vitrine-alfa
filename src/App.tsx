@@ -6,9 +6,8 @@ import { TabelaMovimentos } from "./componentes/TabelaMovimentos.tsx";
 /**
  * Dashboard da Vitrine — o painel de liquidação e repasse.
  *
- * É o projeto-alvo da PoC Squad Sintética: um app React de verdade, para a
- * squad de agentes trabalhar em cima. Os dados são mockados; o que importa é
- * o código, não o número.
+ * Protótipo de demonstração: um app React com dados mockados. O foco está no
+ * código, não no número exibido.
  */
 export function App() {
   return (
@@ -52,7 +51,7 @@ export function App() {
       </main>
 
       <footer className="rodape">
-        Vitrine · projeto-alvo da PoC Squad Sintética · dados fictícios
+        Vitrine · protótipo de demonstração · dados fictícios
       </footer>
     </div>
   );

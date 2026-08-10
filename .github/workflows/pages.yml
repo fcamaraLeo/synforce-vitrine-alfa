@@ -1,7 +1,7 @@
 name: Deploy no GitHub Pages
 
-# CI/CD nativo do Pages: a cada push na main (inclusive quando um gate é
-# aprovado e o PR entra na main), rebuilda o dashboard e redeploya sozinho.
+# CI/CD nativo do Pages: a cada push na main, rebuilda o dashboard e
+# redeploya sozinho.
 on:
   push:
     branches: [main]

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Dashboard da Vitrine — app React (Vite). Projeto-alvo da PoC Squad Sintética.",
+  "description": "Dashboard da Vitrine — app React (Vite), protótipo de demonstração.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

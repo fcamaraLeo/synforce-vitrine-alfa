@@ -1,7 +1,7 @@
 # Vitrine — Dashboard
 
-App **React (Vite)** com o painel de liquidação e repasse da Vitrine. Projeto-alvo
-da PoC Squad Sintética — é aqui que a squad de agentes trabalha.
+App **React (Vite)** com o painel de liquidação e repasse da Vitrine. Protótipo
+de demonstração, com dados mockados.
 
 ```bash
 npm install
@@ -24,5 +24,5 @@ src/
     TabelaMovimentos.tsx
 ```
 
-Os dados são fictícios de propósito: o valor da PoC está no processo que produz
-o código, não no número exibido.
+Os dados são fictícios de propósito: o foco está no código, não no número
+exibido.
