@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Dashboard da Vitrine — app React (Vite), protótipo de demonstração.",
+  "description": "Liquidação, repasse e sem planilhas no meio do caminho — dashboard da Vitrine (React, Vite).",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
