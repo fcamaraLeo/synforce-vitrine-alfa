@@ -1,6 +1,6 @@
 # Vitrine — Dashboard
 
-App **React (Vite)** com o painel de liquidação e repasse da Vitrine. Protótipo
+App **React (Vite)** com Liquidação, repasse e sem planilhas no meio do caminho — o dashboard da Vitrine. Protótipo
 de demonstração, com dados mockados.
 
 ```bash

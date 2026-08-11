@@ -5,7 +5,8 @@ import { TabelaMovimentos } from "./componentes/TabelaMovimentos.tsx";
 import { calcularSaldo } from "./saldo.ts";
 
 /**
- * Dashboard da Vitrine — o painel de liquidação e repasse.
+ * Dashboard da Vitrine — o painel de liquidação, repasse e sem planilhas
+ * no meio do caminho.
  *
  * Protótipo de demonstração: um app React com dados mockados. O foco está no
  * código, não no número exibido.
@@ -37,7 +38,7 @@ export function App() {
         <div className="titulo-pagina">
           <div>
             <h1>Visão geral</h1>
-            <p className="subtitulo">Liquidação e repasse consolidados — semana de 03 a 09 de agosto.</p>
+            <p className="subtitulo">Liquidação, repasse e sem planilhas no meio do caminho.</p>
           </div>
           <button className="botao-primario">Exportar relatório</button>
         </div>
