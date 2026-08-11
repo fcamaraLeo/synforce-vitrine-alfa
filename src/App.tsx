@@ -1,7 +1,8 @@
-import { metricas } from "./dados.ts";
+import { metricas, movimentos, formatarReais } from "./dados.ts";
 import { CartaoMetrica } from "./componentes/CartaoMetrica.tsx";
 import { GraficoVolume } from "./componentes/GraficoVolume.tsx";
 import { TabelaMovimentos } from "./componentes/TabelaMovimentos.tsx";
+import { calcularSaldo } from "./saldo.ts";
 
 /**
  * Dashboard da Vitrine — o painel de liquidação e repasse.
@@ -10,6 +11,9 @@ import { TabelaMovimentos } from "./componentes/TabelaMovimentos.tsx";
  * código, não no número exibido.
  */
 export function App() {
+  const saldoCentavos = calcularSaldo(movimentos);
+  const saldoFormatado = formatarReais(saldoCentavos);
+
   return (
     <div className="app">
       <header className="topo">
@@ -37,6 +41,13 @@ export function App() {
           </div>
           <button className="botao-primario">Exportar relatório</button>
         </div>
+
+        <section className="saldo-consolidado" aria-label="Saldo consolidado">
+          <span className="saldo-consolidado-rotulo">Saldo consolidado</span>
+          <span className={`saldo-consolidado-valor${saldoCentavos < 0 ? " negativo" : ""}`}>
+            {saldoFormatado}
+          </span>
+        </section>
 
         <section className="grade-metricas">
           {metricas.map((m) => (

@@ -99,6 +99,32 @@ body {
   padding: 18px;
 }
 
+/* ── Saldo consolidado ────────────────────────────────────────────────── */
+.saldo-consolidado {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-md);
+}
+.saldo-consolidado-rotulo {
+  color: var(--texto-suave);
+  font-size: 14px;
+  font-weight: 600;
+}
+.saldo-consolidado-valor {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--texto);
+}
+.saldo-consolidado-valor.negativo {
+  color: var(--erro);
+}
+
 /* ── Métricas ─────────────────────────────────────────────────────────── */
 .grade-metricas {
   display: grid;
