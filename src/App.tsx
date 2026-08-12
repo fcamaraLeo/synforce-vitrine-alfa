@@ -68,3 +68,4 @@ export function App() {
     </div>
   );
 }
+// PRÉVIA-TESTE: verificação do fluxo de preview por PR
