@@ -1,23 +1,33 @@
-name: Deploy no GitHub Pages
+name: Pages — produção e prévias de PR
 
-# CI/CD nativo do Pages: a cada push na main, rebuilda o dashboard e
-# redeploya sozinho.
+# Dois destinos no mesmo site do GitHub Pages, servidos do ramo `gh-pages`:
+#   · produção  → raiz            (a versão final, da main)
+#   · prévia    → /pr-preview/pr-N (o que um PR entrega, para conferir ANTES
+#                                    de aprovar o gate; some sozinha no merge)
+#
+# O dashboard é Vite: builda e publica `dist`. O `base` (via PAGES_BASE) precisa
+# apontar para a subpasta onde o site será servido — na produção é a raiz do
+# repo; na prévia é /pr-preview/pr-N — senão os assets com hash dão 404.
+
 on:
   push:
     branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write        # escrever no ramo gh-pages
+  pull-requests: write   # a prévia comenta a URL no PR
 
+# Uma escrita no gh-pages por vez: produção e prévias compartilham o ramo.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: gh-pages-escrita
+  cancel-in-progress: false
 
 jobs:
-  build:
+  producao:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,18 +38,37 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          # Pages serve na subpasta do repo; os assets precisam desse prefixo.
           PAGES_BASE: /synforce-vitrine-alfa/
-      - uses: actions/upload-pages-artifact@v3
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
+          publish_branch: gh-pages
+          keep_files: true       # não apaga o diretório pr-preview/
+          user_name: fcamaraLeo
+          user_email: leonardo.sales@fcamara.com
+          commit_message: 'deploy produção (${{ github.sha }})'
 
-  deploy:
-    needs: build
+  previa:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      # No fechamento do PR não há o que buildar — só remover a prévia.
+      - if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - if: github.event.action != 'closed'
+        run: npm ci
+      - if: github.event.action != 'closed'
+        run: npm run build
+        env:
+          # O base tem que casar com o caminho da prévia (pr-preview/pr-N).
+          PAGES_BASE: /synforce-vitrine-alfa/pr-preview/pr-${{ github.event.number }}/
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
