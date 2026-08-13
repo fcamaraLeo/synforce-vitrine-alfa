@@ -1,7 +1,8 @@
-import { metricas, movimentos, formatarReais } from "./dados.ts";
+import { metricas, movimentos } from "./dados.ts";
 import { CartaoMetrica } from "./componentes/CartaoMetrica.tsx";
 import { GraficoVolume } from "./componentes/GraficoVolume.tsx";
 import { TabelaMovimentos } from "./componentes/TabelaMovimentos.tsx";
+import { SaldoConsolidado } from "./componentes/SaldoConsolidado.tsx";
 import { calcularSaldo } from "./saldo.ts";
 
 /**
@@ -13,7 +14,6 @@ import { calcularSaldo } from "./saldo.ts";
  */
 export function App() {
   const saldoCentavos = calcularSaldo(movimentos);
-  const saldoFormatado = formatarReais(saldoCentavos);
 
   return (
     <div className="app">
@@ -43,18 +43,13 @@ export function App() {
           <button className="botao-primario">Exportar relatório</button>
         </div>
 
-        <section className="saldo-consolidado" aria-label="Saldo consolidado">
-          <span className="saldo-consolidado-rotulo">Saldo consolidado</span>
-          <span className={`saldo-consolidado-valor${saldoCentavos < 0 ? " negativo" : ""}`}>
-            {saldoFormatado}
-          </span>
-        </section>
-
         <section className="grade-metricas">
           {metricas.map((m) => (
             <CartaoMetrica key={m.chave} metrica={m} />
           ))}
         </section>
+
+        <SaldoConsolidado totalCentavos={saldoCentavos} />
 
         <section className="grade-paineis">
           <GraficoVolume />

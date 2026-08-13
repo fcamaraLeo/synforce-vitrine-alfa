@@ -105,15 +105,12 @@ body {
   align-items: baseline;
   gap: 12px;
   margin-bottom: 24px;
-  padding: 20px 24px;
-  background: var(--fundo);
-  border: 1px solid var(--borda);
-  border-radius: var(--raio-md);
 }
 .saldo-consolidado-rotulo {
   color: var(--texto-suave);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
+  margin: 0 0 8px;
 }
 .saldo-consolidado-valor {
   font-size: 32px;
