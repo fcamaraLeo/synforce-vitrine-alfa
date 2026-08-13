@@ -43,13 +43,13 @@ export function App() {
           <button className="botao-primario">Exportar relatório</button>
         </div>
 
+        <SaldoConsolidado totalCentavos={saldoCentavos} />
+
         <section className="grade-metricas">
           {metricas.map((m) => (
             <CartaoMetrica key={m.chave} metrica={m} />
           ))}
         </section>
-
-        <SaldoConsolidado totalCentavos={saldoCentavos} />
 
         <section className="grade-paineis">
           <GraficoVolume />
