@@ -23,38 +23,40 @@ describe("Layout dos cards — Volume por dia e Últimos movimentos", () => {
     expect(true).toBe(true); // placeholder — o git diff externo já prova
   });
 
-  // ── Critério 4: ≥1024px lado a lado 1fr 1fr ──────────────────────────
-  it("'grade-paineis' usa grid-template-columns: 1fr 1fr (fora de media query)", () => {
+  // ── Critério 1: cards ocupam 100% do container pai ────────────────────
+  it("'grade-paineis' usa grid-template-columns: 1fr (coluna única, 100% cada card)", () => {
     // Pega a regra .grade-paineis que NÃO está dentro de @media
     const match = css.match(
       /\.grade-paineis\s*\{[^}]*grid-template-columns\s*:\s*([^;}]+)/,
     );
     expect(match).not.toBeNull();
-    expect(match![1].trim()).toBe("1fr 1fr");
+    expect(match![1].trim()).toBe("1fr");
   });
 
-  // ── Critério 1 + 4: não sobrou 5fr 7fr ───────────────────────────────
-  it("não contém mais '5fr 7fr' (restrição de largura antiga)", () => {
+  // ── Critério 1: não sobrou 5fr 7fr nem 1fr 1fr (restrições antigas) ──
+  it("não contém '5fr 7fr' nem '1fr 1fr' (restrições de lado a lado)", () => {
     expect(css).not.toMatch(/5fr\s+7fr/);
+    expect(css).not.toMatch(/1fr\s+1fr/);
   });
 
-  // ── Critério 3: transição visual ≤ 300ms ─────────────────────────────
-  it("'grade-paineis' tem transition com duração ≤ 300ms", () => {
+  // ── Critério 3: sem transição que cause reordenamento ─────────────────
+  it("'grade-paineis' não tem transition de grid-template-columns (não há reordenamento)", () => {
+    // Com coluna única não há o que animar, então não deve ter transition
+    // que mexa no grid-template-columns.
     const match = css.match(
-      /\.grade-paineis\s*\{[^}]*transition\s*:\s*grid-template-columns\s+(\d+ms)/,
+      /\.grade-paineis\s*\{[^}]*transition\s*:\s*grid-template-columns/,
     );
-    expect(match).not.toBeNull();
-    const duracao = parseInt(match![1], 10);
-    expect(duracao).toBeLessThanOrEqual(300);
+    expect(match).toBeNull();
   });
 
-  // ── Critério 5: <1024px empilhados ───────────────────────────────────
-  it("media query (max-width: 1023px) empilha .grade-paineis com 1fr", () => {
-    // Procura por @media com max-width: 1023px que tenha .grade-paineis com 1fr
+  // ── Critério 5: empilhados verticalmente em qualquer viewport ─────────
+  it("não existe media query (max-width: 1023px) para grade-paineis (sempre empilhado)", () => {
+    // A media query de 1023px foi removida porque não há o que alterar:
+    // grade-paineis já é 1fr sempre.
     const mediaMatch = css.match(
-      /@media\s*\(max-width\s*:\s*1023px\)\s*\{[^}]*\.grade-paineis\s*\{[^}]*grid-template-columns\s*:\s*1fr[^}]*\}/,
+      /@media\s*\(max-width\s*:\s*1023px\)\s*\{[^}]*\.grade-paineis/,
     );
-    expect(mediaMatch).not.toBeNull();
+    expect(mediaMatch).toBeNull();
   });
 
   // ── Critério 6: títulos visíveis (font-size/padding não alterados) ───
@@ -99,7 +101,7 @@ describe("Layout dos cards — Volume por dia e Últimos movimentos", () => {
     expect(match).toBeNull();
   });
 
-  // ── Critério 1: cards ocupam 100% (gap 16px, sem overflow visible) ───
+  // ── Critério 1: gap para espaçamento preservado ───────────────────────
   it("'grade-paineis' tem gap: 16px para espaçamento entre cards", () => {
     const match = css.match(/\.grade-paineis\s*\{[^}]*gap\s*:\s*16px/);
     expect(match).not.toBeNull();
